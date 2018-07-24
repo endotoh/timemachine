@@ -68,7 +68,7 @@ func TestFrozenNow(t *testing.T) {
 	n2f := n2.Add(SLEEP)
 	until := Until(n2f)
 	fatalIf(until >= SLEEP || until <= 0, t,
-		"With unfrozen time, timemachine.Sleep() should be behaving just like time.Sleep()")
+		"With unfrozen time, timemachine.Sleep() should be behaving just like time.Sleep() (got: %v, should be larger than: %v)", until, SLEEP)
 }
 
 func TestTimeTravel(t *testing.T) {
