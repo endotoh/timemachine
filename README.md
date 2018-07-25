@@ -1,4 +1,4 @@
-# timemachine
+# timemachine ![Travis Build Status](https://travis-ci.org/endotoh/timemachine.svg?branch=master)
 Mockable time (therefore time travel) in Golang, inspired by Gock
 
 ## INTRODUCTION
