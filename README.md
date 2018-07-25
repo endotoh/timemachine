@@ -4,7 +4,9 @@ Mockable time (therefore time travel) in Golang, inspired by Gock
 ## INTRODUCTION
 
 I didn't find something super simple and lightweight for mocking time
-for frequent Golang testing use cases which do not global switcher objects calling conventions. This does the job for me, making everything feel like one is using the standard 'time' package; you might find it useful too.
+for frequent Golang testing use cases which do not require global switcher object 
+calling conventions. This does the job for me, making everything feel like one 
+is using the standard 'time' package; you might find it useful too.
 
 ## USAGE
 
