@@ -4,8 +4,8 @@ Mockable time (therefore time travel) in Golang, inspired by Gock
 ## INTRODUCTION
 
 I didn't find something super simple and lightweight for mocking time
-for frequent Golang testing use cases which do not require global switcher object 
-calling conventions. This does the job for me, making everything feel like one 
+for frequent Golang testing use cases which do not require global switcher object
+calling conventions. This does the job for me, making everything feel like one
 is using the standard 'time' package; you might find it useful too.
 
 ## USAGE
@@ -17,36 +17,36 @@ PACKAGE DOCUMENTATION
 
 package timemachine
 
-    Package timemachine is a testing friendly drop-in replacement for Go's standard time package
+Package timemachine is a testing friendly drop-in replacement for Go's standard time package
 
-    In production code, just use identically named static functions in time package like Now(), Since(), Until() and Sleep(). They all use and
-    return the same time.Time and time.Duration types you know and love.
+In production code, just use identically named static functions in time package
+like Now(), Since(), Until() and Sleep(). They all use and return the same
+time.Time and time.Duration types you know and love.
 
-    In testing code, you can freeze and unfreeze time, sleep without incurring real wall clock time (i.e. making tests slower) and even travel forward in time. A typical test:
+In testing code, you can freeze and unfreeze time, sleep without incurring
+real wall clock time (i.e. making tests slower) and even travel forward in time.
+A typical test:
 
-    func TestMy24HourExpiryBizLogic(t *testing.T) {
+func TestMy24HourExpiryBizLogic(t *testing.T) {
+  _ = timemachine.FreezeNow()  
+	defer timemachine.Unfreeze()  
+	x := mypkg.Init()
+	if x.IsExpired() {
+	  t.Error("New objects should never be expired")
+	}
+	timemachine.Travel(24 * time.Hour + time.Second)
+	if ! x.IsExpired() {
+	  t.Error("Just over a day old objects should be expired")
+	}
+ }
 
-      _ = timemachine.FreezeNow()
-	    defer timemachine.Unfreeze()
-	    x := mypkg.Init()
-	    if x.IsExpired() {
-	      t.Error("New objects should never be expired")
-	    }
-	    timemachine.Travel(24 * time.Hour + time.Second)
-	    if ! x.IsExpired() {
-	      t.Error("Just over a day old objects should be expired")
-	    }
-    }
+Inspired by HTTP mocking library Gock:
+  https://github.com/h2non/gock
 
-    Inspired by HTTP mocking library Gock:
-
-	    https://github.com/h2non/gock
-
-    Relies on a single global sync.Mutex locked state to determine whether
-    time is frozen. Alternatives which rely on objects instead can be found
-    at:
-
-	    https://www.reddit.com/r/golang/comments/530cqp/how_to_mock_time_for_testing_purposes/
+Relies on a single global sync.Mutex locked state to determine whether
+time is frozen. Alternatives which rely on objects instead can be found
+at:
+  https://www.reddit.com/r/golang/comments/530cqp/how_to_mock_time_for_testing_purposes/
 
 
 FUNCTIONS
